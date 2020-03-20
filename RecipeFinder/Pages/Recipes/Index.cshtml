@@ -1,0 +1,62 @@
+﻿@page
+@model RecipeFinder.IndexModel
+
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<h1>Recipes</h1>
+
+<p>
+    <a asp-page="Create">Create New Recipe</a>
+</p>
+
+<form>
+    <p>
+        Search by Ingredient: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].IngredientsWithAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Instruction)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Recipe) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IngredientsWithAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instruction)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

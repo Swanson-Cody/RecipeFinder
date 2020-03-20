@@ -1,0 +1,50 @@
+﻿@page "{id:int}"
+@model RecipeFinder.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Recipe.ID" />
+            <div class="form-group">
+                <label asp-for="Recipe.Title" class="control-label"></label>
+                <input asp-for="Recipe.Title" class="form-control" />
+                <span asp-validation-for="Recipe.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.DateAdded" class="control-label"></label>
+                <input asp-for="Recipe.DateAdded" class="form-control" />
+                <span asp-validation-for="Recipe.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.IngredientsWithAmount" class="control-label"></label>
+                <textarea asp-for="Recipe.IngredientsWithAmount" class="form-control"></textarea>
+                <span asp-validation-for="Recipe.IngredientsWithAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Instruction" class="control-label"></label>
+                <textarea asp-for="Recipe.Instruction" class="form-control"></textarea>
+                <span asp-validation-for="Recipe.Instruction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
