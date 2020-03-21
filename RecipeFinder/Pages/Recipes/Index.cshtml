@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Recipe[0].DateAdded)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].IngredientsWithAmount)
+                @Html.DisplayNameFor(model => model.Recipe[0].Ingredients)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Recipe[0].Instruction)
@@ -46,7 +46,11 @@
                 @Html.DisplayFor(modelItem => item.DateAdded)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IngredientsWithAmount)
+                @for (var i = 0; i < item.Ingredients.Count; i++)
+                {
+                    @Html.DisplayFor(modelItem => item.Ingredients[i].Name)
+                }
+                @*@Html.DisplayFor(modelItem => item.Ingredients)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Instruction)

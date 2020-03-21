@@ -16,8 +16,7 @@ namespace RecipeFinder.Models
         [DataType(DataType.Date)]
         public DateTime DateAdded { get; set; }
 
-        [Display(Name = "Ingredients/Amount")]
-        public string IngredientsWithAmount { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
         public string Instruction { get; set; }
     }
 }

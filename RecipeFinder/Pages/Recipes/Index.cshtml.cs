@@ -32,7 +32,8 @@ namespace RecipeFinder
             var allRecipes = await enumerableRecipes.Select(x => new Recipe
             {
                 ID = x.ID,
-                IngredientsWithAmount = x.IngredientsWithAmount,
+                Ingredients = x.Ingredients,
+                //IngredientsWithAmount = x.IngredientsWithAmount,
                 DateAdded = x.DateAdded,
                 Instruction = x.Instruction,
                 Title = x.Title
@@ -40,19 +41,19 @@ namespace RecipeFinder
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                var strings = SearchString.Split(',');
-                foreach (var splitString in strings)
-                {
-                    var foundRecipes = allRecipes.Where(s => s.IngredientsWithAmount.Contains(splitString)).ToList();
+                //var strings = SearchString.Split(',');
+                //foreach (var splitString in strings)
+                //{
+                    //var foundRecipes = allRecipes.Where(s => s.IngredientsWithAmount.Contains(splitString)).ToList();
                     //foundRecipes.ForEach(x => recipeList.Add(x));
-                    foreach (var recipe in foundRecipes)
-                    {
-                        if (!recipesToReturn.ContainsKey(recipe.ID))
-                        {
-                            recipesToReturn.Add(recipe.ID, recipe);
-                        }
-                    }
-                }
+                    //foreach (var recipe in foundRecipes)
+                    //{
+                        //if (!recipesToReturn.ContainsKey(recipe.ID))
+                        //{
+                        //    recipesToReturn.Add(recipe.ID, recipe);
+                        //}
+                    //}
+                //}
                 
                 Recipe = recipesToReturn.Values.ToList();
             }

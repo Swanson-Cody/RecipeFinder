@@ -10,7 +10,7 @@ using RecipeFinder.Data;
 namespace RecipeFinder.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200320045414_InitialCreate")]
+    [Migration("20200321014210_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,35 @@ namespace RecipeFinder.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RecipeFinder.Models.Ingredient", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Measurement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Ingredient");
+                });
+
             modelBuilder.Entity("RecipeFinder.Models.Recipe", b =>
                 {
                     b.Property<int>("ID")
@@ -230,9 +259,6 @@ namespace RecipeFinder.Data.Migrations
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("IngredientsWithAmount")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Instruction")
                         .HasColumnType("nvarchar(max)");
@@ -292,6 +318,15 @@ namespace RecipeFinder.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeFinder.Models.Ingredient", b =>
+                {
+                    b.HasOne("RecipeFinder.Models.Recipe", null)
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
