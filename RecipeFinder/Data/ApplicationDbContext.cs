@@ -14,5 +14,6 @@ namespace RecipeFinder.Data
         {
         }
         public DbSet<RecipeFinder.Models.Recipe> Recipe { get; set; }
+        public DbSet<RecipeFinder.Models.Ingredient> Ingredient { get; set; }
     }
 }

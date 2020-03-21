@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,18 +10,17 @@ using RecipeFinder.Models;
 
 namespace RecipeFinder
 {
-    [Authorize]
-    public class RecipeDeleteModel : PageModel
+    public class IngredientsDeleteModel : PageModel
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
 
-        public RecipeDeleteModel(RecipeFinder.Data.ApplicationDbContext context)
+        public IngredientsDeleteModel(RecipeFinder.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Recipe Recipe { get; set; }
+        public Ingredient Ingredient { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,9 +29,9 @@ namespace RecipeFinder
                 return NotFound();
             }
 
-            Recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            Ingredient = await _context.Ingredient.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Recipe == null)
+            if (Ingredient == null)
             {
                 return NotFound();
             }
@@ -47,11 +45,11 @@ namespace RecipeFinder
                 return NotFound();
             }
 
-            Recipe = await _context.Recipe.FindAsync(id);
+            Ingredient = await _context.Ingredient.FindAsync(id);
 
-            if (Recipe != null)
+            if (Ingredient != null)
             {
-                _context.Recipe.Remove(Recipe);
+                _context.Ingredient.Remove(Ingredient);
                 await _context.SaveChangesAsync();
             }
 

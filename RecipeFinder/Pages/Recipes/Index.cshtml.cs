@@ -12,11 +12,11 @@ using RecipeFinder.Models;
 namespace RecipeFinder
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class RecipeIndexModel : PageModel
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
 
-        public IndexModel(RecipeFinder.Data.ApplicationDbContext context)
+        public RecipeIndexModel(RecipeFinder.Data.ApplicationDbContext context)
         {
             _context = context;
         }

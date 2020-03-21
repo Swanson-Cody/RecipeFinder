@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,18 +11,17 @@ using RecipeFinder.Models;
 
 namespace RecipeFinder
 {
-    [Authorize]
-    public class RecipeEditModel : PageModel
+    public class IngredientsEditModel : PageModel
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
 
-        public RecipeEditModel(RecipeFinder.Data.ApplicationDbContext context)
+        public IngredientsEditModel(RecipeFinder.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Recipe Recipe { get; set; }
+        public Ingredient Ingredient { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,9 +30,9 @@ namespace RecipeFinder
                 return NotFound();
             }
 
-            Recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            Ingredient = await _context.Ingredient.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Recipe == null)
+            if (Ingredient == null)
             {
                 return NotFound();
             }
@@ -50,7 +48,7 @@ namespace RecipeFinder
                 return Page();
             }
 
-            _context.Attach(Recipe).State = EntityState.Modified;
+            _context.Attach(Ingredient).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace RecipeFinder
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecipeExists(Recipe.ID))
+                if (!IngredientExists(Ingredient.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace RecipeFinder
             return RedirectToPage("./Index");
         }
 
-        private bool RecipeExists(int id)
+        private bool IngredientExists(int id)
         {
-            return _context.Recipe.Any(e => e.ID == id);
+            return _context.Ingredient.Any(e => e.ID == id);
         }
     }
 }

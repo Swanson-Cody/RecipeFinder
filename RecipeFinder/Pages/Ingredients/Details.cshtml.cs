@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +10,16 @@ using RecipeFinder.Models;
 
 namespace RecipeFinder
 {
-    [Authorize]
-    public class RecipeDetailsModel : PageModel
+    public class IngredientsDetailsModel : PageModel
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
 
-        public RecipeDetailsModel(RecipeFinder.Data.ApplicationDbContext context)
+        public IngredientsDetailsModel(RecipeFinder.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Recipe Recipe { get; set; }
+        public Ingredient Ingredient { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +28,9 @@ namespace RecipeFinder
                 return NotFound();
             }
 
-            Recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            Ingredient = await _context.Ingredient.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Recipe == null)
+            if (Ingredient == null)
             {
                 return NotFound();
             }
