@@ -25,43 +25,61 @@ namespace RecipeFinder
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
+        public string UserId { get; set; }
+
         public async Task OnGetAsync()
         {
-            var recipesToReturn = new Dictionary<int, Recipe>();
-            var enumerableRecipes = from r in _context.Recipe select r;
-            var allRecipes = await enumerableRecipes.Select(x => new Recipe
-            {
-                ID = x.ID,
-                Ingredients = x.Ingredients,
-                //IngredientsWithAmount = x.IngredientsWithAmount,
-                DateAdded = x.DateAdded,
-                Instruction = x.Instruction,
-                Title = x.Title
-            }).ToListAsync();
+            var recipes = new List<Recipe>();
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                //var strings = SearchString.Split(',');
-                //foreach (var splitString in strings)
-                //{
-                    //var foundRecipes = allRecipes.Where(s => s.IngredientsWithAmount.Contains(splitString)).ToList();
-                    //foundRecipes.ForEach(x => recipeList.Add(x));
-                    //foreach (var recipe in foundRecipes)
-                    //{
-                        //if (!recipesToReturn.ContainsKey(recipe.ID))
-                        //{
-                        //    recipesToReturn.Add(recipe.ID, recipe);
-                        //}
-                    //}
-                //}
-                
-                Recipe = recipesToReturn.Values.ToList();
+                recipes = _context.Recipe
+                    .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
+                    .Where(x => x.Ingredients.Select(y => y.Name).Contains(SearchString))
+                    .Select(recipe => new Recipe
+                    {
+                        ID = recipe.ID,
+                        UserId = recipe.UserId,
+                        Title = recipe.Title,
+                        DateAdded = recipe.DateAdded,
+                        Instruction = recipe.Instruction,
+                        Ingredients = recipe.Ingredients
+                            .Select(ingredient => new Ingredient
+                            {
+                                ID = ingredient.ID,
+                                RecipeId = ingredient.RecipeId,
+                                Name = ingredient.Name,
+                                Measurement = ingredient.Measurement,
+                                Notes = ingredient.Notes,
+                                Quantity = ingredient.Quantity
+                            }).ToList()
+                    }).ToList();
             }
             else
             {
-                Recipe = allRecipes;
+                recipes = _context.Recipe
+                    .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
+                    .Select(recipe => new Recipe
+                    {
+                        ID = recipe.ID,
+                        UserId = recipe.UserId.ToString(),
+                        Title = recipe.Title,
+                        DateAdded = recipe.DateAdded,
+                        Instruction = recipe.Instruction,
+                        Ingredients = recipe.Ingredients
+                            .Select(ingredient => new Ingredient
+                            {
+                                ID = ingredient.ID,
+                                RecipeId = ingredient.RecipeId,
+                                Name = ingredient.Name,
+                                Measurement = ingredient.Measurement,
+                                Notes = ingredient.Notes,
+                                Quantity = ingredient.Quantity
+                            }).ToList()
+                    }).ToList();
             }
 
+            Recipe = recipes;
         }
     }
 }

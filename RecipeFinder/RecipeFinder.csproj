@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-RecipeFinder-84B46ED0-D40F-4891-8F47-102CC3E4054A</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200323200510_UserId.cs" />
+    <Compile Remove="Data\Migrations\20200323200510_UserId.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />

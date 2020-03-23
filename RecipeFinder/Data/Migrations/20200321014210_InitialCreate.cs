@@ -52,6 +52,7 @@ namespace RecipeFinder.Data.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     Instruction = table.Column<string>(nullable: true)
@@ -59,6 +60,12 @@ namespace RecipeFinder.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipe", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Recipe_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -21,9 +21,12 @@ namespace RecipeFinder.Models
                     return;   // DB has been seeded
                 }
 
+                var user = context.Users.Select(x => x).FirstOrDefault();
+
                 context.Recipe.AddRange(
                     new Recipe
                     {
+                        UserId = user?.Id ?? null,
                         Title = "Vegetable Medley",
                         DateAdded = DateTime.Parse("2020-03-02"),
                         Instruction = "1) Preheat Oven 350°F. 2) Add all ingredients into a bowl and mix together. 3) Put ingredients into a 9x9 pan and cover with aluminum foil. 4) Bake for 35-40 minutes."
@@ -55,7 +58,8 @@ namespace RecipeFinder.Models
                     //}
                 );
 
-                var foo = context.SaveChanges();
+                context.SaveChanges();
+                var recipe = context.Recipe.Select(x => x).FirstOrDefault();
 
                 context.Ingredient.AddRange(
                         new Ingredient()
@@ -63,7 +67,7 @@ namespace RecipeFinder.Models
                             Name = "Zucchini",
                             Measurement = Measurements.Cup.ToString(),
                             Quantity = .5,
-                            RecipeId = foo,
+                            RecipeId = recipe.ID,
                             Notes = "Chopped"
                         },
                         new Ingredient()
@@ -71,7 +75,7 @@ namespace RecipeFinder.Models
                             Name = "Bell Pepper",
                             Measurement = Measurements.Cup.ToString(),
                             Quantity = .25,
-                            RecipeId = foo,
+                            RecipeId = recipe.ID,
                             Notes = "Chopped"
                         },
                         new Ingredient()
@@ -79,7 +83,7 @@ namespace RecipeFinder.Models
                             Name = "Celery",
                             Measurement = Measurements.Cup.ToString(),
                             Quantity = .25,
-                            RecipeId = foo,
+                            RecipeId = recipe.ID,
                             Notes = "Chopped"
                         },
                         new Ingredient()
@@ -87,14 +91,14 @@ namespace RecipeFinder.Models
                             Name = "Broccoli",
                             Measurement = Measurements.Cup.ToString(),
                             Quantity = .25,
-                            RecipeId = foo,
+                            RecipeId = recipe.ID,
                             Notes = "Chopped"
                         },
                         new Ingredient()
                         {
                             Name = "Chicken Breast",
                             Quantity = 1,
-                            RecipeId = foo,
+                            RecipeId = recipe.ID,
                             Notes = "Cooked and chopped"
                         },
                         new Ingredient()
@@ -102,18 +106,18 @@ namespace RecipeFinder.Models
                             Name = "Cream of Mushroom",
                             Measurement = Measurements.Ounce.ToString(),
                             Quantity = 21,
-                            RecipeId = foo
+                            RecipeId = recipe.ID
                         },
                         new Ingredient()
                         {
                             Name = "Black Pepper",
                             Measurement = Measurements.Teaspoon.ToString(),
                             Quantity = .25,
-                            RecipeId = foo
+                            RecipeId = recipe.ID
                         }
                     );
 
-                context.SaveChanges();
+                var ingredientId = context.SaveChanges();
             }
         }
     }

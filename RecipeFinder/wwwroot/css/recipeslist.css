@@ -1,0 +1,30 @@
+﻿.addSpace {
+    display: inline-block;
+}
+.addSpace:after {
+    content: ",";
+}
+body {
+    /*background-image: url(../images/foodsplash.jpg);*/
+    /*color: white;*/
+}
+/*th {
+    color: white;
+}
+td {
+    color: white;
+}*/
+
+/*.positiontext {
+    background-color:darksalmon;
+    border-radius: 15px;
+}*/
+@media only screen and (min-width: 37.5em) {
+    body {
+        
+    }
+}
+
+@media only screen and (min-width: 64em) {
+
+}
