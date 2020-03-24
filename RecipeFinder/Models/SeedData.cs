@@ -26,7 +26,7 @@ namespace RecipeFinder.Models
                 context.Recipe.AddRange(
                     new Recipe
                     {
-                        UserId = user?.Id ?? null,
+                        UserId = user.Id,
                         Title = "Vegetable Medley",
                         DateAdded = DateTime.Parse("2020-03-02"),
                         Instruction = "1) Preheat Oven 350°F. 2) Add all ingredients into a bowl and mix together. 3) Put ingredients into a 9x9 pan and cover with aluminum foil. 4) Bake for 35-40 minutes."

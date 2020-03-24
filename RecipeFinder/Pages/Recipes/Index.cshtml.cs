@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -15,27 +18,31 @@ namespace RecipeFinder
     public class RecipeIndexModel : PageModel
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RecipeIndexModel(RecipeFinder.Data.ApplicationDbContext context)
+        public RecipeIndexModel(RecipeFinder.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public List<Recipe> Recipe { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
-
         public string UserId { get; set; }
 
         public async Task OnGetAsync()
         {
             var recipes = new List<Recipe>();
+            UserId = _userManager.GetUserId(User);
+            var searchItems = SearchString?.Split(',').Select(x => x.Trim());
 
             if (!string.IsNullOrEmpty(SearchString))
             {
                 recipes = _context.Recipe
                     .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
-                    .Where(x => x.Ingredients.Select(y => y.Name).Contains(SearchString))
+                    .Where(x => x.Ingredients.Select(y => y.Name).Any(z => searchItems.Contains(z)))
+                    .Where(x => x.UserId.Equals(UserId))
                     .Select(recipe => new Recipe
                     {
                         ID = recipe.ID,
@@ -59,6 +66,7 @@ namespace RecipeFinder
             {
                 recipes = _context.Recipe
                     .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
+                    .Where(x => x.UserId.Equals(UserId))
                     .Select(recipe => new Recipe
                     {
                         ID = recipe.ID,

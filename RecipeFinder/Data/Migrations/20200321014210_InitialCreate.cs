@@ -52,8 +52,8 @@ namespace RecipeFinder.Data.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     Instruction = table.Column<string>(nullable: true)
                 },
