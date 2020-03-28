@@ -23,11 +23,21 @@
                 <input asp-for="Recipe.DateAdded" class="form-control" />
                 <span asp-validation-for="Recipe.DateAdded" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Recipe.IngredientsWithAmount" class="control-label"></label>
-                <textarea asp-for="Recipe.IngredientsWithAmount" class="form-control"></textarea>
-                <span asp-validation-for="Recipe.IngredientsWithAmount" class="text-danger"></span>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="Ingredient.Name" class="control-label"></label>
+                <input asp-for="Ingredient.Name" class="form-control" />
+                <span asp-validation-for="Ingredient.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Quantity" class="control-label"></label>
+                <input asp-for="Ingredient.Quantity" class="form-control" />
+                <span asp-validation-for="Ingredient.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Measurement" class="control-label"></label>
+                <input asp-for="Ingredient.Measurement" class="form-control" />
+                <span asp-validation-for="Ingredient.Measurement" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Recipe.Instruction" class="control-label"></label>
                 <textarea asp-for="Recipe.Instruction" class="form-control"></textarea>

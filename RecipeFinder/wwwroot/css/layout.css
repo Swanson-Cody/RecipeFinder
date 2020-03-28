@@ -1,0 +1,32 @@
+﻿body {
+    background-image: url(../images/foodsplash-small.jpg);
+    background-repeat: no-repeat;
+    background-color: #f7f8fa;
+}
+
+header {
+    background-color: #e75139;
+}
+
+@media only screen and (min-width: 37.5em) {
+    body {
+    }
+}
+
+@media only screen and (min-width: 64em) {
+    body {
+        background-image: url(../images/foodsplash-medium.jpg);
+    }
+}
+
+@media only screen and (min-width: 115em) {
+    body {
+        background-image: url(../images/foodsplash-large.jpg);
+    }
+}
+
+@media only screen and (min-width: 125em) {
+    body {
+        background-image: url(../images/foodsplash-xlarge.jpg);
+    }
+}

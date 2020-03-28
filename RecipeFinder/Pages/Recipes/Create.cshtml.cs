@@ -28,6 +28,9 @@ namespace RecipeFinder
 
         [BindProperty]
         public Recipe Recipe { get; set; }
+        
+        [BindProperty]
+        public Ingredient Ingredient { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
