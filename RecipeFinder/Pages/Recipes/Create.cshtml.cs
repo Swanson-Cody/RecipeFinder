@@ -16,9 +16,11 @@ namespace RecipeFinder
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
 
-        public RecipeCreateModel(RecipeFinder.Data.ApplicationDbContext context)
+
+        public RecipeCreateModel(ApplicationDbContext context)
         {
             _context = context;
+            Ingredients = new List<Ingredient> { new Ingredient() };
         }
 
         public IActionResult OnGet()
@@ -28,9 +30,9 @@ namespace RecipeFinder
 
         [BindProperty]
         public Recipe Recipe { get; set; }
-        
+
         [BindProperty]
-        public Ingredient Ingredient { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -44,7 +46,18 @@ namespace RecipeFinder
             _context.Recipe.Add(Recipe);
             await _context.SaveChangesAsync();
 
+            foreach (var ingredient in Ingredients)
+            {
+                _context.Ingredient.Add(ingredient);
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToPage("./Index");
+        }
+
+        public async Task OnPostAddIngredientAsync()
+        {
+            Ingredients.Add(new Ingredient());
         }
     }
 }

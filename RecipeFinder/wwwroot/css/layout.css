@@ -8,6 +8,42 @@ header {
     background-color: #e75139;
 }
 
+.ingredientborder {
+    width: 900px;
+    margin-top: 20px;
+}
+
+.ingredientborder input {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
+
+.ingredientborder input:first-of-type {
+    margin-left: 0px;
+}
+
+.ingredientborder select {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
+
+.ingredientborder textarea {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
+
+.ingredientborder button {
+    margin-bottom: 20px;
+    display: block;
+}
+
+
 @media only screen and (min-width: 37.5em) {
     body {
     }

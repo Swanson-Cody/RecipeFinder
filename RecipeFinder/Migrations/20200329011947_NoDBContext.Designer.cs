@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeFinder.Data;
 
-namespace RecipeFinder.Data.Migrations
+namespace RecipeFinder.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200323201647_UserId")]
-    partial class UserId
+    [Migration("20200329011947_NoDBContext")]
+    partial class NoDBContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -266,7 +266,7 @@ namespace RecipeFinder.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserRecordNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

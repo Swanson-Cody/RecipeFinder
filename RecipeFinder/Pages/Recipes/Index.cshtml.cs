@@ -42,11 +42,11 @@ namespace RecipeFinder
                 recipes = _context.Recipe
                     .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
                     .Where(x => x.Ingredients.Select(y => y.Name).Any(z => searchItems.Contains(z)))
-                    .Where(x => x.UserId.Equals(UserId))
+                    .Where(x => x.UserRecordNumber.Equals(UserId))
                     .Select(recipe => new Recipe
                     {
                         ID = recipe.ID,
-                        UserId = recipe.UserId,
+                        UserRecordNumber = recipe.UserRecordNumber,
                         Title = recipe.Title,
                         DateAdded = recipe.DateAdded,
                         Instruction = recipe.Instruction,
@@ -66,11 +66,11 @@ namespace RecipeFinder
             {
                 recipes = _context.Recipe
                     .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
-                    .Where(x => x.UserId.Equals(UserId))
+                    .Where(x => x.UserRecordNumber.Equals(UserId))
                     .Select(recipe => new Recipe
                     {
                         ID = recipe.ID,
-                        UserId = recipe.UserId.ToString(),
+                        UserRecordNumber = recipe.UserRecordNumber.ToString(),
                         Title = recipe.Title,
                         DateAdded = recipe.DateAdded,
                         Instruction = recipe.Instruction,
