@@ -256,6 +256,134 @@ namespace RecipeFinder.Areas.Identity.Pages.Account
                 );
 
             _context.SaveChanges();
+
+            recipe = new Recipe
+            {
+                UserRecordNumber = userId,
+                Title = "Mash Potato with Chicken Bowl",
+                DateAdded = DateTime.Parse("2020-03-02"),
+                Instruction = "1) Boil potatoes until they are soft. 2) Mash together in a mixing bowl the softened potatoes, butter, milk, salt, and pepper. 3) Cook popcorn chicken in deep fryer at 370°F or air fryer for 400°F. 4) Add cheese, corn, and popcorn chicken on top of the mashed potatoes in order listed."
+            };
+
+            _context.Recipe.Add(recipe);
+            _context.SaveChanges();
+
+            _context.Ingredient.AddRange(
+                    new Ingredient()
+                    {
+                        Name = "Potatoes",
+                        Quantity = 2,
+                        RecipeId = recipe.ID,
+                        Notes = "Medium sized."
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Butter",
+                        Measurement = Measurements.Cup.ToString(),
+                        Quantity = .25,
+                        RecipeId = recipe.ID
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Milk",
+                        Measurement = Measurements.Cup.ToString(),
+                        Quantity = .25,
+                        RecipeId = recipe.ID
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Salt",
+                        RecipeId = recipe.ID,
+                        Notes = "Add enough to satisfy taste preference."
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Black Pepper",
+                        RecipeId = recipe.ID,
+                        Notes = "Add enough to satisfy taste preference."
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Cheese",
+                        Measurement = Measurements.Cup.ToString(),
+                        Quantity = .25,
+                        RecipeId = recipe.ID
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Corn",
+                        Measurement = Measurements.Cup.ToString(),
+                        Quantity = .25,
+                        RecipeId = recipe.ID
+                    },
+                    new Ingredient()
+                    {
+                        Name = "Popcorn Chicken",
+                        Measurement = Measurements.Cup.ToString(),
+                        Quantity = 1,
+                        RecipeId = recipe.ID
+                    }
+            );
+
+            _context.SaveChanges();
+
+            recipe = new Recipe
+            {
+                UserRecordNumber = userId,
+                Title = "Parmesan Chicken",
+                DateAdded = DateTime.Parse("2020-03-02"),
+                Instruction = "1) Preheat oven to 350°F. 2) Mix butter, parsley, salt, and black pepper together in a bowl. 3) Coat chicken with mixture from step 2 and then coat with parmesan cheese. 4) Put chicken in baking pan, cover with aluminum foil. Bake for 15-20 minutes. 5) Remove aluminum foil. Bake until golden."
+            };
+
+            _context.Recipe.Add(recipe);
+            _context.SaveChanges();
+
+            _context.Ingredient.AddRange(
+                   new Ingredient()
+                   {
+                       Name = "Chicken Breast",
+                       Quantity = 2,
+                       RecipeId = recipe.ID
+                   },
+                   new Ingredient()
+                   {
+                       Name = "Parmesan Cheese",
+                       Measurement = Measurements.Cup.ToString(),
+                       Quantity = .50,
+                       RecipeId = recipe.ID,
+                       Notes = "Grated"
+                   },
+                   new Ingredient()
+                   {
+                       Name = "Salt",
+                       Measurement = Measurements.Dash.ToString(),
+                       RecipeId = recipe.ID
+                   },
+                   new Ingredient()
+                   {
+                       Name = "Black Pepper",
+                       Measurement = Measurements.Dash.ToString(),
+                       RecipeId = recipe.ID,
+                   },
+                   new Ingredient()
+                   {
+                       Name = "Parsley",
+                       Measurement = Measurements.Teaspoon.ToString(),
+                       Quantity = 1,
+                       RecipeId = recipe.ID,
+                       Notes = "Flakes"
+                   },
+                   new Ingredient()
+                   {
+                       Name = "Butter",
+                       Measurement = Measurements.Stick.ToString(),
+                       Quantity = .66,
+                       RecipeId = recipe.ID,
+                       Notes = "Softened"
+                   }
+           );
+
+            _context.SaveChanges();
         }
     }
 }

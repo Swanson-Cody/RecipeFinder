@@ -11,6 +11,7 @@
         Gallon,
         Dash,
         Pinch,
-        Pound
+        Pound,
+        Stick
     }
 }

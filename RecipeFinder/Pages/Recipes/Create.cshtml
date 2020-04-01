@@ -35,7 +35,7 @@
                     <input asp-for="@i" type="hidden" />
                     <div class="form-group">
                         <input type="text" class="form-control" asp-for="@Model.Ingredients[i].Name" placeholder="Enter ingredient name">
-                        <input type="text" class="form-control" asp-for="@Model.Ingredients[i].Quantity" placeholder="Qty">
+                        <input type="text" class="form-control" asp-for="@Model.Ingredients[i].Quantity" placeholder="Quantity: whole/decimal">
                         <select asp-for="@Model.Ingredients[i].Measurement" asp-items="Html.GetEnumSelectList<Measurements>()" class="form-control" id="measurement_input">
                             <option selected="selected" value="">Measurement Type</option>
                         </select>
@@ -44,13 +44,13 @@
 
                     <button class="removeIngredientButton" type="submit" asp-page-handler="removeingredient" asp-route-id="@i" asp-route-index="@i">x</button>
                 }
-
+                <span asp-validation-for="@Model.Ingredients[0].Name" class="text-danger"></span>
                 <button type="submit" asp-page-handler="addingredient">Add Ingredient</button>
             </div>
 
             <div class="form-group">
                 <label asp-for="Recipe.Instruction" class="control-label"></label>
-                <textarea rows="3" asp-for="Recipe.Instruction" class="form-control"></textarea>
+                <textarea rows="3" asp-for="Recipe.Instruction" class="form-control" placeholder="EXAMPLE: 1) Place butter and eggs in large bowl. 2) Blend butter and eggs. 3) etc."></textarea>
                 <span asp-validation-for="Recipe.Instruction" class="text-danger"></span>
             </div>
             <div class="form-group">

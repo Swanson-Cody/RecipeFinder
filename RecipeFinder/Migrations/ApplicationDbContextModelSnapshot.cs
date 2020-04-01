@@ -235,7 +235,7 @@ namespace RecipeFinder.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Quantity")
+                    b.Property<double?>("Quantity")
                         .HasColumnType("float");
 
                     b.Property<int>("RecipeId")
@@ -262,6 +262,7 @@ namespace RecipeFinder.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserRecordNumber")

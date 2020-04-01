@@ -12,6 +12,16 @@
     <Compile Remove="Data\Migrations\20200323200510_UserId.Designer.cs" />
     <Compile Remove="Migrations\20200328235216_InitialCreate.cs" />
     <Compile Remove="Migrations\20200328235216_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200329001821_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200329001821_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200329011947_NoDBContext.cs" />
+    <Compile Remove="Migrations\20200329011947_NoDBContext.Designer.cs" />
+    <Compile Remove="Migrations\20200401061053_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200401061053_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200401062719_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200401062719_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200401063255_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200401063255_InitialCreate.Designer.cs" />
   </ItemGroup>
 
 
