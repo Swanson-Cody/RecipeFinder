@@ -1,0 +1,23 @@
+﻿h1 {
+    color: #e75139;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-top: 50px;
+}
+
+.subcontent {
+    margin-top: -5px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+th {
+    padding-right: 20px;
+}
+
+td {
+    padding-right: 20px;
+}
+
+.positionInstructions {
+    margin-top: 30px;
+}

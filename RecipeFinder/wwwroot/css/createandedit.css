@@ -1,0 +1,43 @@
+﻿.ingredientOrder {
+    width: 900px;
+    margin-top: 20px;
+}
+
+.ingredientOrder input {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
+
+.ingredientOrder input:first-of-type {
+    margin-left: 0px;
+}
+
+.ingredientOrder select {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+}
+
+.ingredientOrder textarea {
+    width: 200px;
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.ingredientOrder button {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.ingredientOrder .removeIngredientButton {
+    background-color: #e75139;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+}

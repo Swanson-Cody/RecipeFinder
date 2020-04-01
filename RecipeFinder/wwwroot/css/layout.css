@@ -1,14 +1,37 @@
-﻿.nav-link:hover {
-    color: #e75139 !important;
+﻿h1 {
+    color: #e75139;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-top: 50px;
 }
+
+.nav-item {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.nav-item:first-of-type {
+    margin-left: 0px;
+}
+
+.nav-item:last-of-type {
+    margin-right: 0px;
+}
+
+.nav-link {
+    font-size: 1.2em;
+}
+
+.nav-link:hover {
+    font-weight: bold;
+}
+
 .nav-link:active {
-    color: black !important;
-    text-shadow: none;
+    font-size: 1.1em;
 }
 
 body {
     background-image: url(../images/foodsplash-small.jpg);
+    -ms-background-repeat: no-repeat;
     background-repeat: no-repeat;
     background-color: #f7f8fa;
 }
@@ -16,48 +39,29 @@ body {
 header {
     background-color: #e75139;
 }
-
-.ingredientborder {
-    width: 900px;
-    margin-top: 20px;
+.btn-primary {
+    background-color: #e75139;
+    border-color: #000000;
+}
+.btn-primary:link {
+    background-color: #e75139;
+}
+.btn-primary:visited {
+    background-color: #e75139;
+}
+.btn-primary:hover {
+    background-color: #e75139;
+}
+.btn-primary:active {
+    background-color: #e75139;
 }
 
-.ingredientborder input {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
+a {
+    color: #e75139;
 }
-
-.ingredientborder input:first-of-type {
-    margin-left: 0px;
+a:hover {
+    color: #e75139;
 }
-
-.ingredientborder select {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
-}
-
-.ingredientborder textarea {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
-}
-
-.ingredientborder button {
-    margin-bottom: 20px;
-    display: block;
-}
-
-
-@media only screen and (min-width: 37.5em) {
-    body {
-    }
-}
-
 @media only screen and (min-width: 64em) {
     body {
         background-image: url(../images/foodsplash-medium.jpg);
