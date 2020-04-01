@@ -35,13 +35,14 @@ namespace RecipeFinder
         {
             var recipes = new List<Recipe>();
             UserId = _userManager.GetUserId(User);
-            var searchItems = SearchString?.Split(',').Select(x => x.Trim());
+            var searchItems = SearchString?.Split(',').Select(x => x.Trim()).Select(x => x.ToLower());
 
             if (!string.IsNullOrEmpty(SearchString))
             {
                 recipes = _context.Recipe
                     .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
-                    .Where(x => x.Ingredients.Select(y => y.Name).Any(z => searchItems.Contains(z)))
+                    .Where(x => x.Ingredients.Select(y => y.Name).Any(z => searchItems.Contains(z.ToLower())))
+                                //|| searchItems.Any(s => x.Title.ToLower().Contains(s.ToLower())))
                     .Where(x => x.UserRecordNumber.Equals(UserId))
                     .Select(recipe => new Recipe
                     {

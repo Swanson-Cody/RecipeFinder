@@ -3,6 +3,7 @@
 }
 
 h5 a {
+    font-size: 1.5em;
     padding-top: 10px;
     color: #e75139;
 }
@@ -19,4 +20,9 @@ p a {
 p a:hover {
     color: #e75139;
     text-decoration: underline;
+}
+
+.eddButtons {
+    font-size: .5em;
+    color: black;
 }

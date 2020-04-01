@@ -28,7 +28,7 @@
 @foreach (var item in Model.Recipe)
 {
     <h5>
-        <a asp-page="../RecipeDisplay" asp-route-id="@item.ID">@Html.DisplayFor(model => item.Title)</a>
+        <a asp-page="../RecipeDisplay" asp-route-id="@item.ID">@Html.DisplayFor(model => item.Title) <a class="eddButtons" asp-page="./Edit" asp-route-id="@item.ID">Edit</a> <span>|</span> <a class="eddButtons" asp-page="./Details" asp-route-id="@item.ID">Details</a> <span>|</span> <a class="eddButtons" asp-page="./Delete" asp-route-id="@item.ID">Delete</a></a>
     </h5>
 }
 

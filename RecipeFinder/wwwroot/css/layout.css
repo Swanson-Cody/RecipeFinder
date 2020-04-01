@@ -39,19 +39,24 @@ body {
 header {
     background-color: #e75139;
 }
+
 .btn-primary {
     background-color: #e75139;
     border-color: #000000;
 }
+
 .btn-primary:link {
     background-color: #e75139;
 }
+
 .btn-primary:visited {
     background-color: #e75139;
 }
+
 .btn-primary:hover {
     background-color: #e75139;
 }
+
 .btn-primary:active {
     background-color: #e75139;
 }
@@ -59,9 +64,11 @@ header {
 a {
     color: #e75139;
 }
+
 a:hover {
     color: #e75139;
 }
+
 @media only screen and (min-width: 64em) {
     body {
         background-image: url(../images/foodsplash-medium.jpg);

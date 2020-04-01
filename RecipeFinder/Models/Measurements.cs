@@ -10,6 +10,7 @@
         Quart,
         Gallon,
         Dash,
-        Pinch
+        Pinch,
+        Pound
     }
 }
