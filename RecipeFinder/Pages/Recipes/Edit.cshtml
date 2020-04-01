@@ -1,9 +1,14 @@
 ﻿@page "{id:int}"
+@using RecipeFinder.Models
 @model RecipeFinder.RecipeEditModel
 
 @{
     ViewData["Title"] = "Edit";
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/createandedit.css"/>
+</head>
 
 <h1>Edit</h1>
 
@@ -13,7 +18,6 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Recipe.ID" />
             <div class="form-group">
                 <label asp-for="Recipe.Title" class="control-label"></label>
                 <input asp-for="Recipe.Title" class="form-control" />
@@ -24,18 +28,33 @@
                 <input asp-for="Recipe.DateAdded" class="form-control" />
                 <span asp-validation-for="Recipe.DateAdded" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Recipe.IngredientsWithAmount" class="control-label"></label>
-                <textarea asp-for="Recipe.IngredientsWithAmount" class="form-control"></textarea>
-                <span asp-validation-for="Recipe.IngredientsWithAmount" class="text-danger"></span>
-            </div>*@
+            <div class="ingredientOrder">
+                <label>Ingredients</label>
+                @for (int i = 0; i < Model.Ingredients?.Count; i++)
+                {
+                    <input asp-for="@i" type="hidden" />
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="@Model.Ingredients[i].Name" placeholder="Enter ingredient name">
+                        <input type="text" class="form-control" asp-for="@Model.Ingredients[i].Quantity" placeholder="Quantity: whole/decimal">
+                        <select asp-for="@Model.Ingredients[i].Measurement" asp-items="Html.GetEnumSelectList<Measurements>()" class="form-control" id="measurement_input">
+                            <option selected="selected" value="">Measurement Type</option>
+                        </select>
+                        <textarea rows="3" class="form-control" asp-for="@Model.Ingredients[i].Notes" placeholder="Notes"></textarea>
+                    </div>
+
+                    <button class="removeIngredientButton" type="submit" asp-page-handler="removeingredient" asp-route-id="@i" asp-route-index="@i">x</button>
+                }
+                <span asp-validation-for="@Model.Ingredients[0].Name" class="text-danger"></span>
+                <button type="submit" asp-page-handler="addingredient">Add Ingredient</button>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Recipe.Instruction" class="control-label"></label>
-                <textarea asp-for="Recipe.Instruction" class="form-control"></textarea>
+                <textarea rows="3" asp-for="Recipe.Instruction" class="form-control" placeholder="EXAMPLE: 1) Place butter and eggs in large bowl. 2) Blend butter and eggs. 3) etc."></textarea>
                 <span asp-validation-for="Recipe.Instruction" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" asp-page-handler="saverecipe" class="btn btn-primary" />
             </div>
         </form>
     </div>

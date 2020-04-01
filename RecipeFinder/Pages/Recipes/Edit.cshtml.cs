@@ -25,6 +25,9 @@ namespace RecipeFinder
         [BindProperty]
         public Recipe Recipe { get; set; }
 
+        [BindProperty]
+        public List<Ingredient> Ingredients { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -33,6 +36,7 @@ namespace RecipeFinder
             }
 
             Recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            Ingredients = await _context.Ingredient.Where(x => x.RecipeId == Recipe.ID).ToListAsync();
 
             if (Recipe == null)
             {
