@@ -35,6 +35,7 @@ namespace RecipeFinder.Pages
             }
 
             Recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            //Recipe.Instruction = Recipe.Instruction.Replace("\r\n", "<br />");
             Recipe.Ingredients = await _context.Ingredient.Where(x => x.RecipeId == Recipe.ID).ToListAsync();
 
             if (Recipe == null)

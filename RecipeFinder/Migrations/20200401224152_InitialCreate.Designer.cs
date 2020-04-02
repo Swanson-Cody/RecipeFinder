@@ -10,7 +10,7 @@ using RecipeFinder.Data;
 namespace RecipeFinder.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200401065532_InitialCreate")]
+    [Migration("20200401224152_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -47,17 +47,19 @@ namespace RecipeFinder
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSaveRecipeAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Recipe).State = EntityState.Modified;
-
             try
             {
+                _context.Attach(Recipe).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                _context.Ingredient.UpdateRange(Ingredients);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -75,9 +77,20 @@ namespace RecipeFinder
             return RedirectToPage("./Index");
         }
 
+        public async Task OnPostAddIngredientAsync()
+        {
+            Ingredients.Add(new Ingredient());
+        }
+
         private bool RecipeExists(int id)
         {
             return _context.Recipe.Any(e => e.ID == id);
+        }
+
+        public async Task OnPostRemoveIngredientAsync(int index)
+        {
+            Ingredients.RemoveAt(index);
+            ModelState.Clear();
         }
     }
 }

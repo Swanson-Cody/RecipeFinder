@@ -12,6 +12,7 @@
         Dash,
         Pinch,
         Pound,
-        Stick
+        Stick,
+        Slice
     }
 }

@@ -45,5 +45,18 @@
 </table>
 <div class="positionInstructions">
     <h3>Instructions</h3>
-    <p>@Model.Recipe.Instruction</p>
+    @foreach (var line in @Model.Recipe.Instruction.Split("\r\n"))
+    {
+        if (string.IsNullOrEmpty(line))
+        {
+            <br/>
+        }
+        else
+        {
+            <div>@line</div>
+        }
+    }
 </div>
+<br/>
+<br/>
+<a asp-page="Recipes/Index">Back to List</a>

@@ -9,11 +9,11 @@
 }
 
 .nav-link:hover {
-    font-weight: bold;
+    color: #f7f8fa !important;
 }
 
 .nav-link:active {
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 body {
