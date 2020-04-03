@@ -557,7 +557,7 @@ namespace RecipeFinder.Areas.Identity.Pages.Account
             recipe = new Recipe
             {
                 UserRecordNumber = userId,
-                Title = "Noodle Stir Fy",
+                Title = "Noodle Stir Fry",
                 DateAdded = DateTime.Parse("2020-03-02"),
                 Instruction = "1) Heat the vegetable oil in a large skillet over medium-high heat. Add chicken, stir until cooked.\r\n2) Add carrot, celery, and broccoli. Cook it for 3 minutes.\r\n3) Add noodles into the pan mix it well.\r\n4) Add oyster sauce and sugar. Add salt to desired level of saltiness through taste tests."
             };
@@ -605,15 +605,80 @@ namespace RecipeFinder.Areas.Identity.Pages.Account
                     Quantity = .5,
                     RecipeId = recipe.ID,
                     Notes = "Chopped into bite-sized pieces."
-                }//,
-                //new Ingredient()
-                //{
-                //    Name = "Chicken",
-                //    Measurement = Measurements.Cup.ToString(),
-                //    Quantity = .5,
-                //    RecipeId = recipe.ID,
-                //    Notes = "Chopped into bite-sized pieces."
-                //}
+                },
+                new Ingredient()
+                {
+                    Name = "Vegetable Oil",
+                    Measurement = Measurements.Tablespoon.ToString(),
+                    Quantity = 1,
+                    RecipeId = recipe.ID,
+                    Notes = "Can use whatever preferred oil you want."
+                },
+                new Ingredient()
+                {
+                    Name = "Oyster Sauce",
+                    Measurement = Measurements.Tablespoon.ToString(),
+                    Quantity = 2,
+                    RecipeId = recipe.ID,
+                    Notes = "Can use less or more as guided by taste preference."
+                },
+                new Ingredient()
+                {
+                    Name = "Sugar",
+                    Measurement = Measurements.Tablespoon.ToString(),
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Can use less or more as guided by taste preference."
+                },
+                new Ingredient()
+                {
+                    Name = "Salt",
+                    RecipeId = recipe.ID,
+                    Notes = "Salt to taste preference."
+                }
+            );
+
+            _context.SaveChanges();
+
+            recipe = new Recipe
+            {
+                UserRecordNumber = userId,
+                Title = "Barbeque Baked Ribs",
+                DateAdded = DateTime.Parse("2020-03-02"),
+                Instruction = "1) Preheat oven to 275°F\r\n2) In mixing bowl, mix bbq sauce, maple syrup, and salt together.\r\n3) Put ribs on baking tray. Brush the mixture from step 2 onto both sides of the ribs.\r\n4) Cover with aluminum foil. Bake it for 1 hour and 20 minutes.\r\n5) Take out from oven. Remove aluminum foil. Flip the ribs. Cover it with aluminum foil again. Bake for another 1 hour and 20 minutes.\r\n6) Take out from oven. Remove the aluminum foil.\r\n7) Preheat oven to 425°F. Put the ribs back in the oven and bake for another 10-15 minutes."
+            };
+
+            _context.Recipe.Add(recipe);
+            _context.SaveChanges();
+
+            _context.Ingredient.AddRange(
+                new Ingredient()
+                {
+                    Name = "Ribs",
+                    Quantity = 1,
+                    RecipeId = recipe.ID,
+                    Notes = "Use 1 rack."
+                },
+                new Ingredient()
+                {
+                    Name = "BBQ Sauce",
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Use half a bottle of your preferred bbq sauce."
+                },
+                new Ingredient()
+                {
+                    Name = "Maple Syrup",
+                    Measurement = Measurements.Tablespoon.ToString(),
+                    Quantity = 2,
+                    RecipeId = recipe.ID
+                },
+                new Ingredient()
+                {
+                    Name = "Salt",
+                    Measurement = Measurements.Dash.ToString(),
+                    RecipeId = recipe.ID
+                }
             );
 
             _context.SaveChanges();

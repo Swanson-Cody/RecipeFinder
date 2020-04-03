@@ -14,13 +14,17 @@
 <h1>Recipes</h1>
 
 <p>
-    <a asp-page="Create">Add New Recipe</a>
+    <a asp-page="Create">+ Add New Recipe</a>
 </p>
 
 <form>
     <p>
-        Search by Ingredient: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
+        <div>Search by recipe name or by ingredient(s):</div>
+        <div>
+            <input type="text" placeholder="pepper, hot wings, tacos, garlic" asp-for="SearchString" style="width: 300px"/>
+            <input style="margin-left: 5px; margin-right: 15px;" type="submit" value="Search"/>
+            <span class="helpToolTip">? <span class="toolTipText">You can use commas between search words. You can search using partially spelled words. Searching will find plural and non-plural spellings of the requested recipe or ingredients. You can remove text and click "Search" to redisplay all recipes.</span></span>
+        </div>
     </p>
 </form>
 
