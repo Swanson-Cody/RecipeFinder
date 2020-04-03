@@ -1,32 +1,10 @@
-﻿.ingredientOrder {
-    width: 900px;
-    margin-top: 20px;
-}
-
-.ingredientOrder input {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
-}
-
-.ingredientOrder input:first-of-type {
-    margin-left: 0px;
-}
-
-.ingredientOrder select {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
-}
-
-.ingredientOrder textarea {
-    width: 200px;
-    display: inline;
-    float: left;
-    margin-left: 10px;
-    margin-right: 10px;
+﻿.ingredientOrder .removeIngredientButton {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 15px;
+    display: block;
+    background-color: #e75139;
+    border-radius: 50%;
 }
 
 .ingredientOrder button {
@@ -34,10 +12,62 @@
     display: block;
 }
 
-.ingredientOrder .removeIngredientButton {
-    background-color: #e75139;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    float: left;
+.form-control {
+    width: 300px;
+}
+
+.instructionInput {
+    display: block;
+    width: 300px;
+}
+@media only screen and (min-width: 45em) {
+    .instructionInput {
+        width: 500px;
+    }
+}
+
+@media only screen and (min-width: 62em) {
+    .ingredientOrder {
+        width: 900px;
+        margin-top: 20px;
+    }
+
+    .ingredientOrder input {
+        width: 200px;
+        display: inline;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .ingredientOrder input:first-of-type {
+        margin-left: 0px;
+    }
+
+    .ingredientOrder select {
+        width: 200px;
+        display: inline;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .ingredientOrder textarea {
+        width: 200px;
+        display: inline;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .ingredientOrder button {
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .ingredientOrder .removeIngredientButton {
+        float: left;
+    }
+
+    .instructionInput {
+        width: 830px;
+    }
 }
