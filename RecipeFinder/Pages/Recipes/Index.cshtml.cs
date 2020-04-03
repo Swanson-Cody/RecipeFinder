@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Pluralize.NET;
 using RecipeFinder.Data;
 using RecipeFinder.Models;
 
@@ -19,11 +22,13 @@ namespace RecipeFinder
     {
         private readonly RecipeFinder.Data.ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IPluralize _pluralizer;
 
         public RecipeIndexModel(RecipeFinder.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
+            _pluralizer = new Pluralizer();
         }
 
         public List<Recipe> Recipe { get; set; }
@@ -35,57 +40,61 @@ namespace RecipeFinder
         {
             var recipes = new List<Recipe>();
             UserId = _userManager.GetUserId(User);
-            var searchItems = SearchString?.Split(',').Select(x => x.Trim()).Select(x => x.ToLower());
+            var searchItems = SearchString?.Split(',').Select(x => x.Trim()).Select(x => x.ToLower()).ToList();
+            var robustSearchItems = new List<string>();
+
+            if (searchItems != null)
+            {
+                foreach (var searchItem in searchItems)
+                {
+                    robustSearchItems.Add(_pluralizer.Singularize(searchItem));
+                    robustSearchItems.Add(_pluralizer.Pluralize(searchItem));
+                }
+            }
+
+            recipes = _context.Recipe
+                .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
+                .Where(x => x.UserRecordNumber.Equals(UserId))
+                .Select(recipe => new Recipe
+                {
+                    ID = recipe.ID,
+                    UserRecordNumber = recipe.UserRecordNumber.ToString(),
+                    Title = recipe.Title,
+                    DateAdded = recipe.DateAdded,
+                    Instruction = recipe.Instruction,
+                    Ingredients = recipe.Ingredients
+                        .Select(ingredient => new Ingredient
+                        {
+                            ID = ingredient.ID,
+                            RecipeId = ingredient.RecipeId,
+                            Name = ingredient.Name,
+                            Measurement = ingredient.Measurement,
+                            Notes = ingredient.Notes,
+                            Quantity = ingredient.Quantity
+                        }).ToList()
+                }).ToList();
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                recipes = _context.Recipe
-                    .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
-                    .Where(x => x.Ingredients.Select(y => y.Name).Any(z => searchItems.Contains(z.ToLower())))
-                                //|| searchItems.Any(s => x.Title.ToLower().Contains(s.ToLower())))
-                    .Where(x => x.UserRecordNumber.Equals(UserId))
-                    .Select(recipe => new Recipe
+                var recipesFromSearch = new List<Recipe>();
+                recipesFromSearch.AddRange(recipes.Where(x => robustSearchItems.Any(y => x.Title.ToLower().Contains(y))));
+
+                foreach (var recipe in recipes)
+                {
+                    foreach (var ingredient in recipe.Ingredients)
                     {
-                        ID = recipe.ID,
-                        UserRecordNumber = recipe.UserRecordNumber,
-                        Title = recipe.Title,
-                        DateAdded = recipe.DateAdded,
-                        Instruction = recipe.Instruction,
-                        Ingredients = recipe.Ingredients
-                            .Select(ingredient => new Ingredient
+                        if (robustSearchItems.Any(x => ingredient.Name.ToLower().Contains(x)))
+                        {
+                            if (!recipesFromSearch.Contains(recipe))
                             {
-                                ID = ingredient.ID,
-                                RecipeId = ingredient.RecipeId,
-                                Name = ingredient.Name,
-                                Measurement = ingredient.Measurement,
-                                Notes = ingredient.Notes,
-                                Quantity = ingredient.Quantity
-                            }).ToList()
-                    }).ToList();
-            }
-            else
-            {
-                recipes = _context.Recipe
-                    .Join(_context.Ingredient, a => a.ID, b => b.RecipeId, (a, b) => a).Distinct()
-                    .Where(x => x.UserRecordNumber.Equals(UserId))
-                    .Select(recipe => new Recipe
-                    {
-                        ID = recipe.ID,
-                        UserRecordNumber = recipe.UserRecordNumber.ToString(),
-                        Title = recipe.Title,
-                        DateAdded = recipe.DateAdded,
-                        Instruction = recipe.Instruction,
-                        Ingredients = recipe.Ingredients
-                            .Select(ingredient => new Ingredient
-                            {
-                                ID = ingredient.ID,
-                                RecipeId = ingredient.RecipeId,
-                                Name = ingredient.Name,
-                                Measurement = ingredient.Measurement,
-                                Notes = ingredient.Notes,
-                                Quantity = ingredient.Quantity
-                            }).ToList()
-                    }).ToList();
+                                recipesFromSearch.Add(recipe);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                recipes = recipesFromSearch;
             }
 
             Recipe = recipes;

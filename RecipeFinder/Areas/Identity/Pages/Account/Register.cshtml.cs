@@ -554,6 +554,69 @@ namespace RecipeFinder.Areas.Identity.Pages.Account
 
             _context.SaveChanges();
 
+            recipe = new Recipe
+            {
+                UserRecordNumber = userId,
+                Title = "Noodle Stir Fy",
+                DateAdded = DateTime.Parse("2020-03-02"),
+                Instruction = "1) Heat the vegetable oil in a large skillet over medium-high heat. Add chicken, stir until cooked.\r\n2) Add carrot, celery, and broccoli. Cook it for 3 minutes.\r\n3) Add noodles into the pan mix it well.\r\n4) Add oyster sauce and sugar. Add salt to desired level of saltiness through taste tests."
+            };
+
+            _context.Recipe.Add(recipe);
+            _context.SaveChanges();
+
+            _context.Ingredient.AddRange(
+                new Ingredient()
+                {
+                    Name = "Noodles",
+                    Measurement = Measurements.Cup.ToString(),
+                    Quantity = 2,
+                    RecipeId = recipe.ID,
+                    Notes = "Have the noodles already boiled/cooked for this recipe."
+                },
+                new Ingredient()
+                {
+                    Name = "Carrot",
+                    Measurement = Measurements.Cup.ToString(),
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Sliced and diced."
+                },
+                new Ingredient()
+                {
+                    Name = "Celery",
+                    Measurement = Measurements.Cup.ToString(),
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Sliced and diced."
+                },
+                new Ingredient()
+                {
+                    Name = "Broccoli",
+                    Measurement = Measurements.Cup.ToString(),
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Sliced and diced."
+                },
+                new Ingredient()
+                {
+                    Name = "Chicken",
+                    Measurement = Measurements.Cup.ToString(),
+                    Quantity = .5,
+                    RecipeId = recipe.ID,
+                    Notes = "Chopped into bite-sized pieces."
+                }//,
+                //new Ingredient()
+                //{
+                //    Name = "Chicken",
+                //    Measurement = Measurements.Cup.ToString(),
+                //    Quantity = .5,
+                //    RecipeId = recipe.ID,
+                //    Notes = "Chopped into bite-sized pieces."
+                //}
+            );
+
+            _context.SaveChanges();
         }
     }
 }
